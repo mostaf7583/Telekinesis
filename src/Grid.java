@@ -25,26 +25,46 @@ public class Grid {
     public void printGrid() {
         int rows = grid.length;
         int cols = grid[0].length;
-
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col <  grid[row].length; col++) {
-            
-                    switch (grid[row][col]) {
-                        case 0:
-                            System.out.print(" - ");  // Print blank cell marker
-                            break;
-                        case 1:
-                            System.out.print(" A ");  // Print agent body marker
-                            break;
-                        case 2:
-                            System.out.print(" F ");  // Print furniture marker
-                            break;
-                    }
-                
-            }
-            System.out.println();  // Move to the next line after each row
+    
+        CommandLineTable table = new CommandLineTable();
+        table.setShowVerticalLines(true); // Show vertical lines between cells
+    
+        // Set table headers with column numbers
+        String[] headers = new String[cols + 1];
+        headers[0] = " "; // An empty cell for the row numbers column
+        for (int col = 0; col < cols; col++) {
+            headers[col + 1] = String.valueOf(col);
         }
+        table.setHeaders(headers);
+    
+        // Add grid content with row numbers
+        for (int row = 0; row < rows; row++) {
+            String[] rowData = new String[cols + 1];
+            rowData[0] = String.valueOf(row); // Row numbers
+    
+            for (int col = 0; col < cols; col++) {
+                char symbol;
+    
+                if (grid[row][col] == 1) {
+                    symbol = 'A'; // Agent body marker
+                } else if (grid[row][col] == 2) {
+                    symbol = 'F'; // Furniture marker
+                } else {
+                    symbol = '-'; // Blank cell marker
+                }
+    
+                rowData[col + 1] = String.valueOf(symbol);
+            }
+    
+            table.addRow(rowData);
+        }
+    
+        // Print the table
+        System.out.println("===== Grid =====");
+        table.print();
+        System.out.println("================");
     }
+    
     // grid generation
 
 
