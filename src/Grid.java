@@ -30,7 +30,10 @@ public class Grid {
                             System.out.print(" A ");  // Print agent body marker
                             break;
                         case 2:
-                            System.out.print(" F ");  // Print furniture marker
+                            System.out.print(" V ");
+                            break;
+                        case 3:
+                            System.out.print(" H ");
                             break;
                     }
                 
@@ -38,9 +41,38 @@ public class Grid {
             System.out.println();  // Move to the next line after each row
         }
     }
+
+    public static Grid generateGridTest() { // n rows, m columns
+        int n = 6;
+        int m = 7;
+        int[][] grid = new int[n][m];
+        int agentRow = 1;
+        int agentCol = 0;
+        grid[agentRow][agentCol] = 1;
+        grid[agentRow][agentCol+1] = 1;
+
+        grid[3][0] = 2;
+        grid[4][0] = 2;
+        furnitures.add(new Furniture(3,0,2,'V'));
+
+        grid[2][2] = 3;
+        grid[2][3] = 3;
+        furnitures.add(new Furniture(2,2,2,'H'));
+
+        grid[0][5] = 2;
+        grid[1][5] = 2;
+        grid[2][5] = 2;
+        furnitures.add(new Furniture(0,5,3,'V'));
+
+        grid[4][2] = 3;
+        grid[4][3] = 3;
+        grid[4][4] = 3;
+        furnitures.add(new Furniture(4,2,3,'H'));
+
+        return new Grid(grid);
+    }
+
     // grid generation
-
-
     public static Grid generateGrid() { // n rows, m columns
        
 
@@ -131,7 +163,7 @@ public class Grid {
                     }
                     if (canPlaceFurniture) {
                         for (int i = 0; i < furnitureLength; i++) {
-                            grid[row][col + i] = 2; // Furniture marker
+                            grid[row][col + i] = 3; // Furniture marker
                         }
                         previousNum = furnitureCount;
                         furnitureCount++;
@@ -144,18 +176,51 @@ public class Grid {
         gridOut.setAgentCol(agentCol);    
         return gridOut; // Adjust agentCol as needed
     }
+   
     public static Grid moveRight(Furniture f){
         int rigthCellPos = f.y+f.length;
         int[][] g = grid.clone();
         if(f.orientation == 'H' && rigthCellPos<grid[0].length && grid[f.x][rigthCellPos] == 0){
-            f.y = f.y+1;
             g[f.x][f.y] = 0;
-            g[f.x][rigthCellPos] = 2;
+            g[f.x][rigthCellPos] = 3;
+            f.y = f.y+1;
         }
         Grid gr = new Grid(g);
         return gr;
     }
-
+    public static Grid moveLeft(Furniture f){
+        int leftCellPos = f.y-1;
+        int[][] g = grid.clone();
+        if(f.orientation == 'H' && leftCellPos>=0 && grid[f.x][leftCellPos] == 0){
+            g[f.x][f.y+f.length-1] = 0;
+            g[f.x][leftCellPos] = 3;
+            f.y = f.y-1;
+        }
+        Grid gr = new Grid(g);
+        return gr;
+    }
+    public static Grid moveUp(Furniture f){
+        int upCellPos = f.x-1;
+        int[][] g = grid.clone();
+        if(f.orientation == 'V' && upCellPos >= 0 && grid[upCellPos][f.y] == 0){
+            g[f.x+f.length-1][f.y] = 0;
+            g[upCellPos][f.y] = 2;
+            f.x = f.x-1;
+        }
+        Grid gr = new Grid(g);
+        return gr;
+    }
+    public static Grid moveDown(Furniture f){
+        int downCellPos = f.x+f.length;
+        int[][] g = grid.clone();
+        if(f.orientation == 'V' && downCellPos<grid.length && grid[downCellPos][f.y] == 0){
+            g[f.x][f.y] = 0;
+            g[downCellPos][f.y] = 2;
+            f.x = f.x+1;
+        }
+        Grid gr = new Grid(g);
+        return gr;
+    }
 
    public void saveGridToFile(String filename) {
         try {
@@ -171,9 +236,11 @@ public class Grid {
                             symbol = "A";
                             break;
                         case 2:
-                            symbol = "F";
+                            symbol = "V";
                             break;
-                        
+                        case 3:
+                            symbol = "H";
+                            break;
                         default:
                             symbol = "?";
                             break;
@@ -191,12 +258,11 @@ public class Grid {
     }
 
     public static void main(String[] args) {
-        Grid grid = Grid.generateGrid();
+        Grid grid = Grid.generateGridTest();
         grid.printGrid();
-        Grid grid2 = Grid.moveRight(grid.furnitures.get(0));
-        System.out.println("=============================");
-        System.out.println(grid.furnitures.get(0).x+" "+grid.furnitures.get(0).y+" "+grid.furnitures.get(0).length+" "+grid.furnitures.get(0).orientation);
-        grid2.printGrid();
+        Furniture f = grid.furnitures.get(0);
+        System.out.println("------------");
+        grid.moveDown(f).moveDown(f).printGrid();
         //grid.saveGridToFile("grid.txt");
     }
 

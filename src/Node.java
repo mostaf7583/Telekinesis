@@ -9,4 +9,8 @@ public class Node {
         return true;    
     }
 
+    public void expand(){
+        
+    }
+
 }
