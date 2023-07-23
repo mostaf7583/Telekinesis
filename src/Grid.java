@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid {
+     private static final int ArrayList = 0;
      static int[][] grid;
      int agentCol;
-     static ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
-     public Grid(int[][] grid){
-        this.grid = grid;
-     }
-     public void setAgentCol(int AgentCol){
+     ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
+    
+    public void setAgentCol(int AgentCol){
         this.agentCol = AgentCol;
-     }
-        public int getAgentCol(){
+    }
+    public int getAgentCol(){
             return agentCol;
         }
     public int[][] getGrid(){
@@ -76,7 +75,7 @@ public class Grid {
         System.out.println("================");
     }
 
-    public static Grid generateGridTest() { // n rows, m columns
+    public Grid generateGridTest() { // n rows, m columns
         int n = 6;
         int m = 7;
         int[][] grid = new int[n][m];
@@ -87,27 +86,31 @@ public class Grid {
 
         grid[3][0] = 2;
         grid[4][0] = 2;
-        furnitures.add(new Furniture(3,0,2,'V'));
+        this.furnitures.add(new Furniture(3,0,2,'V'));
 
         grid[2][2] = 3;
         grid[2][3] = 3;
-        furnitures.add(new Furniture(2,2,2,'H'));
+        this.furnitures.add(new Furniture(2,2,2,'H'));
 
         grid[0][5] = 2;
         grid[1][5] = 2;
         grid[2][5] = 2;
-        furnitures.add(new Furniture(0,5,3,'V'));
+        this.furnitures.add(new Furniture(0,5,3,'V'));
 
         grid[4][2] = 3;
         grid[4][3] = 3;
         grid[4][4] = 3;
-        furnitures.add(new Furniture(4,2,3,'H'));
+        this.furnitures.add(new Furniture(4,2,3,'H'));
 
-        return new Grid(grid);
+        Grid x = new Grid();
+        x.setGrid(grid);
+        x.setFurnitures(this.furnitures);
+        x.setAgentCol(agentCol);
+        return x;
     }
 
     // grid generation
-    public static Grid generateGrid() { // n rows, m columns
+    public Grid generateGrid() { // n rows, m columns
        
 
         int n = 5;
@@ -206,12 +209,16 @@ public class Grid {
                 }
             }
         }
-        Grid gridOut = new Grid(grid);
-        gridOut.setAgentCol(agentCol);    
-        return gridOut; // Adjust agentCol as needed
+       
+        Grid x = new Grid();
+        x.setGrid(grid);
+        x.setFurnitures(this.furnitures);
+        x.setAgentCol(agentCol);// Adjust agentCol as needed
+        return x;  
+   
     }
    
-    public static Grid moveRight(Furniture f){
+    public Grid moveRight(Furniture f){
         int rigthCellPos = f.y+f.length;
         int[][] g = grid.clone();
         if(f.orientation == 'H' && rigthCellPos<grid[0].length && grid[f.x][rigthCellPos] == 0){
@@ -219,10 +226,11 @@ public class Grid {
             g[f.x][rigthCellPos] = 3;
             f.y = f.y+1;
         }
-        Grid gr = new Grid(g);
+        Grid gr = new Grid();
+        gr.setGrid(g);
         return gr;
     }
-    public static Grid moveLeft(Furniture f){
+    public Grid moveLeft(Furniture f){
         int leftCellPos = f.y-1;
         int[][] g = grid.clone();
         if(f.orientation == 'H' && leftCellPos>=0 && grid[f.x][leftCellPos] == 0){
@@ -230,10 +238,11 @@ public class Grid {
             g[f.x][leftCellPos] = 3;
             f.y = f.y-1;
         }
-        Grid gr = new Grid(g);
+        Grid gr = new Grid();
+        gr.setGrid(g);
         return gr;
     }
-    public static Grid moveUp(Furniture f){
+    public Grid moveUp(Furniture f){
         int upCellPos = f.x-1;
         int[][] g = grid.clone();
         if(f.orientation == 'V' && upCellPos >= 0 && grid[upCellPos][f.y] == 0){
@@ -241,10 +250,11 @@ public class Grid {
             g[upCellPos][f.y] = 2;
             f.x = f.x-1;
         }
-        Grid gr = new Grid(g);
+        Grid gr = new Grid();
+        gr.setGrid(g);
         return gr;
     }
-    public static Grid moveDown(Furniture f){
+    public Grid moveDown(Furniture f){
         int downCellPos = f.x+f.length;
         int[][] g = grid.clone();
         if(f.orientation == 'V' && downCellPos<grid.length && grid[downCellPos][f.y] == 0){
@@ -252,8 +262,26 @@ public class Grid {
             g[downCellPos][f.y] = 2;
             f.x = f.x+1;
         }
-        Grid gr = new Grid(g);
+        Grid gr = new Grid();
+        gr.setGrid(g);
         return gr;
+    }
+
+    public Grid copy(){
+        int[][] x = new int[grid.length][grid[0].length];
+        for(int i =0;i<x.length;i++){
+            for(int j=0; j<x[0].length;j++){
+                x[i][j] = grid[i][j];
+            }
+        }
+        Grid copyGrid = new Grid();
+        copyGrid.setGrid(x);
+        ArrayList<Furniture> y = new ArrayList<Furniture>();
+        for(Furniture f: this.furnitures){
+            y.add(new Furniture(f.x, f.y, f.length, f.orientation));
+        }
+        copyGrid.setFurnitures(y);
+        return copyGrid;
     }
 
    public void saveGridToFile(String filename) {
@@ -292,12 +320,27 @@ public class Grid {
     }
 
     public static void main(String[] args) {
+        /*
         Grid grid = Grid.generateGridTest();
         grid.printGrid();
         Furniture f = grid.furnitures.get(0);
         System.out.println("------------");
         grid.moveDown(f).moveDown(f).printGrid();
-        //grid.saveGridToFile("grid.txt");
+        //grid.saveGridToFile("grid.txt"); 
+       
+        Node n = new Node(grid);
+        System.out.println("Branches: ---");
+         n.expand();
+         */
+         Grid x = new Grid();
+         Grid grid = x.generateGridTest();
+         Grid c = grid.copy(); 
+         c.furnitures.get(0).x = 0;
+         System.out.println(grid.furnitures.get(0).x);
+         System.out.println(c.furnitures.get(0).x);
+         
+    
+
     }
 
     
