@@ -154,7 +154,6 @@ public class Grid {
  
     public static void  moveRight(Furniture f) {
         if (canMoveRight(f)) {
-            int rightCellPos = f.y + f.length;
             grid[f.x][f.y] = 0; // Clear the current position of the furniture
             for (int i = 0; i < f.length; i++) {
                 grid[f.x][f.y + i + 1] = 2; // Move the furniture to the right
@@ -175,7 +174,7 @@ public class Grid {
             int rightCellPos = f.y + f.length;
             if (rightCellPos < grid[0].length) {
                 for (int i = 0; i < f.length; i++) {
-                    if (grid[f.x][f.y + i + 1] != 0) {
+                    if (grid[f.x][f.y + i + f.length] != 0) {
                         return false; // Found another furniture, can't move right
                     }
                 }
