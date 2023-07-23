@@ -8,7 +8,9 @@ public class Node {
         }
         return true;    
     }
-
+    public String toString(){
+        return "x: "+x+" y: "+y+" length: "+length+" orientation: "+orientation;
+    }
     public void expand(){
         
     }
