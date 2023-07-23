@@ -9,5 +9,9 @@ public class Furniture{
         this.length = length;
         this.orientation = orientation;
     }
+    //to String
+    public String toString(){
+        return "x: "+x+" y: "+y+" length: "+length+" orientation: "+orientation;
+    }
 
 }

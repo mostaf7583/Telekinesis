@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Grid {
      static int[][] grid;
-     int agentCol;
+     static int agentCol;
      static ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
      public Grid(int[][] grid){
         this.grid = grid;
@@ -13,6 +13,13 @@ public class Grid {
      public void setAgentCol(int AgentCol){
         this.agentCol = AgentCol;
      }
+        public int getAgentCol(){
+            return agentCol;
+        }
+        public static ArrayList<Furniture> getFurnitures(){
+            return furnitures;
+        }
+
 
     // Implement methods for grid generation, move validation, and grid update
     public void printGrid() {
@@ -55,7 +62,7 @@ public class Grid {
 
         //Generate random number of furniture
         int maxFurniture = (n*m-3)/2;
-        int numFurniture = (int)(Math.random()*(maxFurniture+1));
+        int numFurniture = 2;
 
         //Generate random position of agent in the 2nd row
         int maxAgentCol = m-2;
@@ -144,20 +151,43 @@ public class Grid {
         gridOut.setAgentCol(agentCol);    
         return gridOut; // Adjust agentCol as needed
     }
-    public static Grid moveRight(Furniture f){
-        int rigthCellPos = f.y+f.length;
-        int[][] g = grid.clone();
-        if(f.orientation == 'H' && rigthCellPos<grid[0].length && grid[f.x][rigthCellPos] == 0){
-            f.y = f.y+1;
-            g[f.x][f.y] = 0;
-            g[f.x][rigthCellPos] = 2;
+ 
+    public static void  moveRight(Furniture f) {
+        if (canMoveRight(f)) {
+            int rightCellPos = f.y + f.length;
+            grid[f.x][f.y] = 0; // Clear the current position of the furniture
+            for (int i = 0; i < f.length; i++) {
+                grid[f.x][f.y + i + 1] = 2; // Move the furniture to the right
+            }
+            f.y = f.y + 1; // Update the furniture's position
+            furnitures.remove(f); // Remove the furniture from the list
+            furnitures.add(f); // Add the furniture with the updated position back to the list
+            grid[f.x][f.y] = 2; // Update the grid with the new position of the furniture
         }
-        Grid gr = new Grid(g);
-        return gr;
+    
+      
     }
 
 
-   public void saveGridToFile(String filename) {
+
+    public static boolean canMoveRight(Furniture f) {
+        if (f.orientation == 'H') {
+            int rightCellPos = f.y + f.length;
+            if (rightCellPos < grid[0].length) {
+                for (int i = 0; i < f.length; i++) {
+                    if (grid[f.x][f.y + i + 1] != 0) {
+                        return false; // Found another furniture, can't move right
+                    }
+                }
+                return true; // Can move right
+            }
+        }
+        return false; // Furniture is not oriented horizontally or already at the right edge
+    }
+public void setFurnitures(ArrayList<Furniture> furnitures2) {
+        this.furnitures = furnitures2;
+    }
+public void saveGridToFile(String filename) {
         try {
             FileWriter fileWriter = new FileWriter(filename, true);
             for (int[] row : grid) {
@@ -193,10 +223,11 @@ public class Grid {
     public static void main(String[] args) {
         Grid grid = Grid.generateGrid();
         grid.printGrid();
-        Grid grid2 = Grid.moveRight(grid.furnitures.get(0));
+        Grid.moveRight(Grid.getFurnitures().get(0));
         System.out.println("=============================");
-        System.out.println(grid.furnitures.get(0).x+" "+grid.furnitures.get(0).y+" "+grid.furnitures.get(0).length+" "+grid.furnitures.get(0).orientation);
-        grid2.printGrid();
+        System.out.println(grid.getFurnitures());
+        System.out.println("=============================");
+        grid.printGrid();
         //grid.saveGridToFile("grid.txt");
     }
 
