@@ -13,33 +13,67 @@ public class Grid {
      public void setAgentCol(int AgentCol){
         this.agentCol = AgentCol;
      }
-
-    // Implement methods for grid generation, move validation, and grid update
+        public int getAgentCol(){
+            return agentCol;
+        }
+    public int[][] getGrid(){
+        return grid;
+    }
+    public ArrayList<Furniture> getFurnitures(){
+        return furnitures;
+    }
+    public void setFurnitures(ArrayList<Furniture> furnitures){
+        this.furnitures = furnitures;
+    }
+    public void setGrid(int[][] grid){
+        this.grid = grid;
+    }
+    
+    // toString method
+        
     public void printGrid() {
         int rows = grid.length;
         int cols = grid[0].length;
-
-        for (int row = 0; row < grid.length; row++) {
-            for (int col = 0; col <  grid[row].length; col++) {
-            
-                    switch (grid[row][col]) {
-                        case 0:
-                            System.out.print(" - ");  // Print blank cell marker
-                            break;
-                        case 1:
-                            System.out.print(" A ");  // Print agent body marker
-                            break;
-                        case 2:
-                            System.out.print(" V ");
-                            break;
-                        case 3:
-                            System.out.print(" H ");
-                            break;
-                    }
-                
-            }
-            System.out.println();  // Move to the next line after each row
+    
+        CommandLineTable table = new CommandLineTable();
+        table.setShowVerticalLines(true); // Show vertical lines between cells
+    
+        // Set table headers with column numbers
+        String[] headers = new String[cols + 1];
+        headers[0] = " "; // An empty cell for the row numbers column
+        for (int col = 0; col < cols; col++) {
+            headers[col + 1] = String.valueOf(col);
         }
+        table.setHeaders(headers);
+    
+        // Add grid content with row numbers
+        for (int row = 0; row < rows; row++) {
+            String[] rowData = new String[cols + 1];
+            rowData[0] = String.valueOf(row); // Row numbers
+    
+            for (int col = 0; col < cols; col++) {
+                char symbol;
+    
+                if (grid[row][col] == 1) {
+                    symbol = 'A'; // Agent body marker
+                } else if (grid[row][col] == 2) {
+                    symbol = 'V'; // Furniture marker
+                } else if (grid[row][col] == 3){
+                    symbol = 'H'; // Blank cell marker
+                }else {
+                    symbol = '-'; // Blank cell marker
+                }
+    
+                rowData[col + 1] = String.valueOf(symbol);
+            }
+    
+            table.addRow(rowData);
+        }
+    
+        // Print the table
+        System.out.println("===== Grid =====");
+        table.print();
+        System.out.println("================");
     }
 
     public static Grid generateGridTest() { // n rows, m columns
