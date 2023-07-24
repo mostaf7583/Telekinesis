@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid implements Cloneable{
-     private static final int ArrayList = 0;
+     //private static final int ArrayList = 0;
      int[][] grid;
      int agentCol;
      ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
@@ -290,7 +290,7 @@ public class Grid implements Cloneable{
             for (Furniture f : this.furnitures) {
                 newClass.furnitures.add(new Furniture(f.x, f.y, f.length, f.orientation));
             }
-            // Step 46: Return the new instance of the class
+            // Step 6: Return the new instance of the class
             return newClass;
 
         } catch (CloneNotSupportedException e) {
@@ -298,6 +298,16 @@ public class Grid implements Cloneable{
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String convertGridToString(){
+        String str="";
+        for(int i=0;i<this.grid.length;i++){
+            for(int j=0; j<this.grid[i].length;j++){
+                str+=this.grid[i][j];
+            }
+        }
+        return str;
     }
 
    public void saveGridToFile(String filename) {

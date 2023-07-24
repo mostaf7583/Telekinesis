@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Node {
     Grid state;
     ArrayList<Grid> leaves;
+    String strState;
 
     public Node(Grid state){
         this.state = state;
+        this.strState = state.convertGridToString();
         leaves = new ArrayList<Grid>();
     }
 
