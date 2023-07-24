@@ -357,10 +357,12 @@ public class Grid implements Cloneable{
 
         Grid grid = new Grid();
         grid.generateGridTest();
-     
-        Node n = new Node(grid);
-        n.expand();
-        n.printLeaves();
+
+        Node root = new Node(grid);
+
+        Search strategy = new Search();
+        Solution sol = strategy.bfs(root);
+        sol.goal.state.printGrid();
          
          
          

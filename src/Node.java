@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Node {
+    char key;
     Grid state;
     ArrayList<Grid> leaves;
     String strState;
