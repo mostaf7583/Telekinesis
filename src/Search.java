@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Search {
-    public Solution bfs(Node root) {
+    public Solution breadthFirst(Node root) {
         ArrayList<Node> queue = new ArrayList< Node>();
         ArrayList<String> uniqueStates = new ArrayList<String>();
         ArrayList<Node> expanSequence = new ArrayList<Node>();

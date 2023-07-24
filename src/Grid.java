@@ -361,7 +361,7 @@ public class Grid implements Cloneable{
         Node root = new Node(grid);
 
         Search strategy = new Search();
-        Solution sol = strategy.bfs(root);
+        Solution sol = strategy.breadthFirst(root);
         sol.goal.state.printGrid();
          
          
