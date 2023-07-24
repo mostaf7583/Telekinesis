@@ -3,9 +3,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Grid {
+public class Grid implements Cloneable{
      private static final int ArrayList = 0;
-     static int[][] grid;
+     int[][] grid;
      int agentCol;
      ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
     
@@ -75,12 +75,12 @@ public class Grid {
         System.out.println("================");
     }
 
-    public Grid generateGridTest() { // n rows, m columns
+    public void generateGridTest() { // n rows, m columns
         int n = 6;
         int m = 7;
-        int[][] grid = new int[n][m];
+        this.grid = new int[n][m];
         int agentRow = 1;
-        int agentCol = 0;
+        this.agentCol = 0;
         grid[agentRow][agentCol] = 1;
         grid[agentRow][agentCol+1] = 1;
 
@@ -102,15 +102,12 @@ public class Grid {
         grid[4][4] = 3;
         this.furnitures.add(new Furniture(4,2,3,'H'));
 
-        Grid x = new Grid();
-        x.setGrid(grid);
-        x.setFurnitures(this.furnitures);
-        x.setAgentCol(agentCol);
-        return x;
+        
+        
     }
 
     // grid generation
-    public Grid generateGrid() { // n rows, m columns
+    public void generateGrid() { // n rows, m columns
        
 
         int n = 5;
@@ -128,9 +125,9 @@ public class Grid {
 
         //Generate random position of agent in the 2nd row
         int maxAgentCol = m-2;
-        int agentCol = (int)(Math.random()*(maxAgentCol));
+        this.agentCol = (int)(Math.random()*(maxAgentCol));
 
-        int[][] grid = new int[n][m];
+        this.grid = new int[n][m];
         int agentRow = 1;  // The agent is in the second row from the top
 
 
@@ -209,79 +206,98 @@ public class Grid {
                 }
             }
         }
-       
-        Grid x = new Grid();
-        x.setGrid(grid);
-        x.setFurnitures(this.furnitures);
-        x.setAgentCol(agentCol);// Adjust agentCol as needed
-        return x;  
-   
+
     }
    
     public Grid moveRight(Furniture f){
         int rigthCellPos = f.y+f.length;
-        int[][] g = grid.clone();
-        if(f.orientation == 'H' && rigthCellPos<grid[0].length && grid[f.x][rigthCellPos] == 0){
-            g[f.x][f.y] = 0;
-            g[f.x][rigthCellPos] = 3;
-            f.y = f.y+1;
+        Grid clonedGrid = this.clone();
+        if(f.orientation == 'H' && rigthCellPos<grid[0].length && clonedGrid.grid[f.x][rigthCellPos] == 0){
+            clonedGrid.grid[f.x][f.y] = 0;
+            clonedGrid.grid[f.x][rigthCellPos] = 3;
+            for(Furniture s: clonedGrid.furnitures){
+                if(s.compare(f)){
+                    s.y = f.y+1;
+                }
+            } 
         }
-        Grid gr = new Grid();
-        gr.setGrid(g);
-        return gr;
+        return clonedGrid;
     }
     public Grid moveLeft(Furniture f){
         int leftCellPos = f.y-1;
-        int[][] g = grid.clone();
-        if(f.orientation == 'H' && leftCellPos>=0 && grid[f.x][leftCellPos] == 0){
-            g[f.x][f.y+f.length-1] = 0;
-            g[f.x][leftCellPos] = 3;
-            f.y = f.y-1;
+        Grid clonedGrid = this.clone();
+        if(f.orientation == 'H' && leftCellPos>=0 && clonedGrid.grid[f.x][leftCellPos] == 0){
+            clonedGrid.grid[f.x][f.y+f.length-1] = 0;
+            clonedGrid.grid[f.x][leftCellPos] = 3;
+            for(Furniture s: clonedGrid.furnitures){
+                if(s.compare(f)){
+                    s.y = f.y-1;
+                }
+            } 
         }
-        Grid gr = new Grid();
-        gr.setGrid(g);
-        return gr;
+        return clonedGrid;
     }
     public Grid moveUp(Furniture f){
         int upCellPos = f.x-1;
-        int[][] g = grid.clone();
-        if(f.orientation == 'V' && upCellPos >= 0 && grid[upCellPos][f.y] == 0){
-            g[f.x+f.length-1][f.y] = 0;
-            g[upCellPos][f.y] = 2;
-            f.x = f.x-1;
+        Grid clonedGrid = this.clone();
+        if(f.orientation == 'V' && upCellPos >= 0 && clonedGrid.grid[upCellPos][f.y] == 0){
+            clonedGrid.grid[f.x+f.length-1][f.y] = 0;
+            clonedGrid.grid[upCellPos][f.y] = 2;
+            for(Furniture s: clonedGrid.furnitures){
+                if(s.compare(f)){
+                    s.x = f.x-1;
+                }
+            } 
         }
-        Grid gr = new Grid();
-        gr.setGrid(g);
-        return gr;
+        return clonedGrid;
     }
     public Grid moveDown(Furniture f){
         int downCellPos = f.x+f.length;
-        int[][] g = grid.clone();
-        if(f.orientation == 'V' && downCellPos<grid.length && grid[downCellPos][f.y] == 0){
-            g[f.x][f.y] = 0;
-            g[downCellPos][f.y] = 2;
-            f.x = f.x+1;
+        Grid clonedGrid = this.clone();
+        if(f.orientation == 'V' && downCellPos<clonedGrid.grid.length && clonedGrid.grid[downCellPos][f.y] == 0){
+            clonedGrid.grid[f.x][f.y] = 0;
+            clonedGrid.grid[downCellPos][f.y] = 2;
+            for(Furniture s: clonedGrid.furnitures){
+                if(s.compare(f)){
+                    s.x = f.x+1;
+                }
+            } 
         }
-        Grid gr = new Grid();
-        gr.setGrid(g);
-        return gr;
+        return clonedGrid;
     }
 
-    public Grid copy(){
-        int[][] x = new int[grid.length][grid[0].length];
-        for(int i =0;i<x.length;i++){
-            for(int j=0; j<x[0].length;j++){
-                x[i][j] = grid[i][j];
+    public Grid clone() {
+        try {
+            // Step 1: Call the super method to create a new instance of the class
+            Grid newClass = (Grid) super.clone();
+
+            // Step 2: Create a new array object for the cloned class
+            newClass.grid = new int[this.grid.length][this.grid[0].length];
+
+            // Step 3: Copy all the elements from the original array to the new one
+            for (int i = 0; i < this.grid.length; i++) {
+                for(int j=0; j<this.grid[i].length;j++){
+                    int x = this.grid[i][j];
+                    newClass.grid[i][j] = x;
+                }
+                
             }
+
+            // Step 4: Create a new ArrayList object for the cloned class
+            newClass.furnitures = new ArrayList<Furniture>();
+
+            // Step 5: Copy all the elements from the original ArrayList to the new one
+            for (Furniture f : this.furnitures) {
+                newClass.furnitures.add(new Furniture(f.x, f.y, f.length, f.orientation));
+            }
+            // Step 46: Return the new instance of the class
+            return newClass;
+
+        } catch (CloneNotSupportedException e) {
+            // Handle the exception if the class is not cloneable
+            e.printStackTrace();
+            return null;
         }
-        Grid copyGrid = new Grid();
-        copyGrid.setGrid(x);
-        ArrayList<Furniture> y = new ArrayList<Furniture>();
-        for(Furniture f: this.furnitures){
-            y.add(new Furniture(f.x, f.y, f.length, f.orientation));
-        }
-        copyGrid.setFurnitures(y);
-        return copyGrid;
     }
 
    public void saveGridToFile(String filename) {
@@ -327,17 +343,17 @@ public class Grid {
         System.out.println("------------");
         grid.moveDown(f).moveDown(f).printGrid();
         //grid.saveGridToFile("grid.txt"); 
+       */
+
+        Grid grid = new Grid();
+        grid.generateGridTest();
+        //grid.printGrid();
        
-        Node n = new Node(grid);
         System.out.println("Branches: ---");
-         n.expand();
-         */
-         Grid x = new Grid();
-         Grid grid = x.generateGridTest();
-         Grid c = grid.copy(); 
-         c.furnitures.get(0).x = 0;
-         System.out.println(grid.furnitures.get(0).x);
-         System.out.println(c.furnitures.get(0).x);
+        Node n = new Node(grid);
+        n.expand();
+         
+         
          
     
 

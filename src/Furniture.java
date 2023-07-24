@@ -12,5 +12,9 @@ public class Furniture{
     public String toString(){
         return "x: "+x+" y: "+y+" length: "+length+" orientation: "+orientation;
     }
+    public boolean compare(Furniture f){
+        if(f.x == this.x && f.y == this.y && f.length==this.length && f.orientation==this.orientation){return true;}
+        else return false;
+    }
 
 }
