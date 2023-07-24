@@ -363,7 +363,7 @@ public class Grid implements Cloneable{
         Search strategy = new Search();
         Solution sol = strategy.breadthFirst(root);
         sol.goal.state.printGrid();
-        System.out.println("No. of the expanded nodes = "+ sol.expandedNodes + " " + sol.solutionExist);
+        System.out.println("No. of the expanded nodes = "+ sol.expanSequence.size() + " " + sol.solutionExist);
          
          
     
