@@ -5,12 +5,13 @@ public class Search {
     public Solution breadthFirst(Node root) {
         ArrayList<Node> queue = new ArrayList< Node>();
         ArrayList<String> uniqueStates = new ArrayList<String>();
-        ArrayList<Node> expanSequence = new ArrayList<Node>();
-        
-        root.key = 'a';
+        ArrayList<Node> expanSequence = new ArrayList<Node>();   
+        root.key = 1;
+        long index = 1;
         queue.add(root);
         uniqueStates.add(root.strState);
         root.expand();
+        root.cost = 0;
         while(!queue.isEmpty()){
             Node node = queue.get(0);
             expanSequence.add(node);
@@ -23,7 +24,9 @@ public class Search {
                 if (!uniqueStates.contains(newNode.strState)) {
                         newNode.expand();
                         queue.add(newNode);
+                        newNode.key = ++index;
                         uniqueStates.add(newNode.strState);
+
                 }else{
                     continue;
                 }

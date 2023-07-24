@@ -8,6 +8,7 @@ public class Grid implements Cloneable{
      int[][] grid;
      int agentCol;
      ArrayList<Furniture> furnitures = new ArrayList<Furniture>();
+     long cost = 0;
     
     public void setAgentCol(int AgentCol){
         this.agentCol = AgentCol;
@@ -215,6 +216,7 @@ public class Grid implements Cloneable{
         if(f.orientation == 'H' && rigthCellPos<grid[0].length && clonedGrid.grid[f.x][rigthCellPos] == 0){
             clonedGrid.grid[f.x][f.y] = 0;
             clonedGrid.grid[f.x][rigthCellPos] = 3;
+            clonedGrid.cost++;
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.y = f.y+1;
@@ -229,6 +231,7 @@ public class Grid implements Cloneable{
         if(f.orientation == 'H' && leftCellPos>=0 && clonedGrid.grid[f.x][leftCellPos] == 0){
             clonedGrid.grid[f.x][f.y+f.length-1] = 0;
             clonedGrid.grid[f.x][leftCellPos] = 3;
+            clonedGrid.cost++;
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.y = f.y-1;
@@ -243,6 +246,7 @@ public class Grid implements Cloneable{
         if(f.orientation == 'V' && upCellPos >= 0 && clonedGrid.grid[upCellPos][f.y] == 0){
             clonedGrid.grid[f.x+f.length-1][f.y] = 0;
             clonedGrid.grid[upCellPos][f.y] = 2;
+            clonedGrid.cost++;
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.x = f.x-1;
@@ -257,6 +261,7 @@ public class Grid implements Cloneable{
         if(f.orientation == 'V' && downCellPos<clonedGrid.grid.length && clonedGrid.grid[downCellPos][f.y] == 0){
             clonedGrid.grid[f.x][f.y] = 0;
             clonedGrid.grid[downCellPos][f.y] = 2;
+            clonedGrid.cost++;
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.x = f.x+1;
@@ -363,6 +368,7 @@ public class Grid implements Cloneable{
         Search strategy = new Search();
         Solution sol = strategy.breadthFirst(root);
         sol.goal.state.printGrid();
+        System.out.println(sol.goal.cost);
         System.out.println("No. of the expanded nodes = "+ sol.expanSequence.size() + " " + sol.solutionExist);
          
          

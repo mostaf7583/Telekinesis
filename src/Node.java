@@ -1,15 +1,17 @@
 import java.util.ArrayList;
 
 public class Node {
-    char key;
+    long key;
     Grid state;
     ArrayList<Grid> leaves;
     String strState;
+    long cost;
 
     public Node(Grid state){
         this.state = state;
         this.strState = state.convertGridToString();
         leaves = new ArrayList<Grid>();
+        this.cost = state.cost;
     }
 
     public boolean goaltest(){
