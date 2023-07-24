@@ -6,6 +6,7 @@ public class Search {
         ArrayList<Node> queue = new ArrayList< Node>();
         ArrayList<String> uniqueStates = new ArrayList<String>();
         ArrayList<Node> expanSequence = new ArrayList<Node>();
+        long expandedNodes = 0;
         
         root.key = 'a';
         queue.add(root);
@@ -15,8 +16,9 @@ public class Search {
             Node node = queue.get(0);
             expanSequence.add(node);
             queue.remove(0);
+            expandedNodes++;
             if(node.goaltest()){   
-                return new Solution(expanSequence,queue,node,true);
+                return new Solution(expanSequence,queue,node,true,expandedNodes);
             }
             for(Grid child: node.leaves){
                 Node newNode = new Node(child);
@@ -29,6 +31,6 @@ public class Search {
                 }
             }
         }
-        return new Solution(expanSequence,queue,new Node(new Grid()),false);
+        return new Solution(expanSequence,queue,root,false,expandedNodes);
     }
 }

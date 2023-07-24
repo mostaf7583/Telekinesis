@@ -356,14 +356,14 @@ public class Grid implements Cloneable{
        */
 
         Grid grid = new Grid();
-        grid.generateGridTest();
+        grid.generateGrid();
 
         Node root = new Node(grid);
 
         Search strategy = new Search();
         Solution sol = strategy.breadthFirst(root);
         sol.goal.state.printGrid();
-         
+        System.out.println("No. of the expanded nodes = "+ sol.expandedNodes + " " + sol.solutionExist);
          
          
     
