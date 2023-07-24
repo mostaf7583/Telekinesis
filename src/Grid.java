@@ -70,9 +70,9 @@ public class Grid implements Cloneable{
         }
     
         // Print the table
-        System.out.println("===== Grid =====");
+        //System.out.println("===== Grid =====");
         table.print();
-        System.out.println("================");
+        System.out.println("=======================================");
     }
 
     public void generateGridTest() { // n rows, m columns
@@ -347,11 +347,10 @@ public class Grid implements Cloneable{
 
         Grid grid = new Grid();
         grid.generateGridTest();
-        //grid.printGrid();
-       
-        System.out.println("Branches: ---");
+     
         Node n = new Node(grid);
         n.expand();
+        n.printLeaves();
          
          
          
