@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
-public class Node {
+public class Node  { 
     long key;
     Grid state;
     ArrayList<Grid> leaves;
     String strState;
     long cost;
+    int depth;
+
 
     public Node(Grid state){
         this.state = state;
@@ -28,6 +30,7 @@ public class Node {
             if(f.orientation == 'V'){
                 leaves.add(state.moveUp(f));
                 leaves.add(state.moveDown(f));
+                
             }
             else if(f.orientation == 'H'){
                 leaves.add(state.moveRight(f));
@@ -44,5 +47,18 @@ public class Node {
             g.printGrid();
         }
     }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    // Setter method to set the depth of the node
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
+  
+
+    
 
 }
