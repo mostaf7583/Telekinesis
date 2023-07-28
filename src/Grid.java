@@ -364,7 +364,7 @@ public class Grid implements Cloneable{
         grid.generateGrid();
 
         Node root = new Node(grid);
-
+        
         Search strategy = new Search();
         Solution sol = strategy.breadthFirst(root);
         Solution sol2 = strategy.depthFirst(root);

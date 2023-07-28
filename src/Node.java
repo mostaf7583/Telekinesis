@@ -14,6 +14,7 @@ public class Node  {
         this.strState = state.convertGridToString();
         leaves = new ArrayList<Grid>();
         this.cost = state.cost;
+        this.depth = 0;
     }
 
     public boolean goaltest(){
@@ -25,6 +26,7 @@ public class Node  {
     }
   
     public void expand(){
+        this.depth++;
         for(int i=0;i<state.furnitures.size();i++){
             Furniture f = state.furnitures.get(i);
             if(f.orientation == 'V'){
