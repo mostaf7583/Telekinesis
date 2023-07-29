@@ -15,12 +15,17 @@ public class Node  {
     long parentKey;
     HashMap<Long, Node> allNodes = new HashMap<Long, Node>();
     Node parentNode;
+    long  aStarCost;
+    long greedyCost;
 
     public void setParent(Node n){
         this.parentNode = n;
     }
     public Node getParent(){
         return this.parentNode;
+    }
+    public int h1(){
+       return 0;
     }
 
     public Node(Grid state){
@@ -32,6 +37,8 @@ public class Node  {
         parentKey = 0;
         this.key = ++index;
         allNodes.put(key, this );
+        aStarCost = this.cost + h1() ;
+        greedyCost = h1();
     }
 
     public boolean goaltest(){
@@ -95,5 +102,21 @@ class Sortbycost implements Comparator<Node>
     public int compare(Node a, Node b)
     {
         return (int)(a.cost - b.cost);
+    }
+}
+
+class SortbyaStar_cost implements Comparator<Node>
+{
+    public int compare(Node a, Node b)
+    {
+        return (int)(a.aStarCost - b.aStarCost);
+    }
+}
+
+class Sortbyhersic implements Comparator<Node>
+{
+    public int compare(Node a, Node b)
+    {
+        return (int)(a.greedyCost - b.greedyCost);
     }
 }
