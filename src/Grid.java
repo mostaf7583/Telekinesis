@@ -369,11 +369,15 @@ public class Grid implements Cloneable{
         Solution sol = strategy.breadthFirst(root);
         Solution sol2 = strategy.depthFirst(root);
         Solution sol3 = strategy.iterativeDeepening(root);
-        /*
+
         sol.goal.state.printGrid();
         System.out.println(sol.goal.cost);
         System.out.println("No. of the expanded nodes = "+ sol.expanSequence.size() + " " + sol.solutionExist);
 
+        sol.visualizeSolution();
+
+
+        /*
         sol2.goal.state.printGrid();
         System.out.println(sol2.goal.cost);
         System.out.println("No. of the expanded nodes = "+ sol2.expanSequence.size() + " " + sol2.solutionExist);
