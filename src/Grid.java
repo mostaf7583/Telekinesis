@@ -351,18 +351,19 @@ public class Grid implements Cloneable{
     }
 
     public static void main(String[] args) {
-        
+
         Grid grid = new Grid();
-        grid.generateGrid();
+        grid.generateGridTest();
 
         Node root = new Node(grid);
         
         Search strategy = new Search();
-        Solution sol = strategy.breadthFirst(root);
+        Solution sol1 = strategy.breadthFirst(root);
         Solution sol2 = strategy.depthFirst(root);
         Solution sol3 = strategy.iterativeDeepening(root);
-
-        sol3.visualizeSolution();
+        Solution sol4 = strategy.uniformCost(root);
+        
+        sol4.visualizeSolution();
 
 
     }

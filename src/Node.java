@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+ 
 public class Node  { 
     long index = 0;
     long key;
@@ -85,9 +88,12 @@ public class Node  {
     public void setDepth(int depth) {
         this.depth = depth;
     }
+}
 
-  
-
-    
-
+class Sortbycost implements Comparator<Node>
+{
+    public int compare(Node a, Node b)
+    {
+        return (int)(a.cost - b.cost);
+    }
 }
