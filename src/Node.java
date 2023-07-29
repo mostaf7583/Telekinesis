@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Node  { 
     long key;
     Grid state;
-    ArrayList<Grid> leaves;
+    ArrayList<Node> leaves;
     String strState;
     long cost;
     int depth;
@@ -12,7 +12,7 @@ public class Node  {
     public Node(Grid state){
         this.state = state;
         this.strState = state.convertGridToString();
-        leaves = new ArrayList<Grid>();
+        leaves = new ArrayList<Node>();
         this.cost = state.cost;
         this.depth = 0;
     }
@@ -26,17 +26,26 @@ public class Node  {
     }
   
     public void expand(){
-        this.depth++;
         for(int i=0;i<state.furnitures.size();i++){
             Furniture f = state.furnitures.get(i);
             if(f.orientation == 'V'){
-                leaves.add(state.moveUp(f));
-                leaves.add(state.moveDown(f));
+                Node x = new Node(state.moveUp(f));
+                x.depth = this.depth+1;
+                leaves.add(x);
+
+                Node y = new Node(state.moveDown(f));
+                y.depth = this.depth+1;
+                leaves.add(y);
                 
             }
             else if(f.orientation == 'H'){
-                leaves.add(state.moveRight(f));
-                leaves.add(state.moveLeft(f));
+                Node x = new Node(state.moveRight(f));
+                x.depth = this.depth+1;
+                leaves.add(x);
+
+                Node y = new Node(state.moveLeft(f));
+                y.depth = this.depth+1;
+                leaves.add(y);
             }
         }
     }
@@ -44,9 +53,9 @@ public class Node  {
         System.out.println("NODE:     ");
         this.state.printGrid();
         int count = 0;
-        for(Grid g:leaves){
+        for(Node g:leaves){
             System.out.println("Child no. "+ ++count+" :     ");
-            g.printGrid();
+            g.state.printGrid();
         }
     }
 

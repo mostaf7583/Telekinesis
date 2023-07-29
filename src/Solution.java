@@ -5,6 +5,9 @@ public class Solution {
     ArrayList<Node> queue;
     boolean solutionExist;
     Node goal;
+    public Solution(){
+        
+    }
     public Solution(ArrayList<Node> expanSequence, ArrayList<Node> queue,Node goal,boolean solutionExist){
         this.expanSequence = expanSequence;
         this.queue = queue;
