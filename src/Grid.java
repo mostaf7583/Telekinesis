@@ -351,17 +351,9 @@ public class Grid implements Cloneable{
     }
 
     public static void main(String[] args) {
-        /*
-        Grid grid = Grid.generateGridTest();
-        grid.printGrid();
-        Furniture f = grid.furnitures.get(0);
-        System.out.println("------------");
-        grid.moveDown(f).moveDown(f).printGrid();
-        //grid.saveGridToFile("grid.txt"); 
-       */
-
+        
         Grid grid = new Grid();
-        grid.generateGridTest();
+        grid.generateGrid();
 
         Node root = new Node(grid);
         
@@ -370,25 +362,8 @@ public class Grid implements Cloneable{
         Solution sol2 = strategy.depthFirst(root);
         Solution sol3 = strategy.iterativeDeepening(root);
 
-        sol.goal.state.printGrid();
-        System.out.println(sol.goal.cost);
-        System.out.println("No. of the expanded nodes = "+ sol.expanSequence.size() + " " + sol.solutionExist);
+        sol3.visualizeSolution();
 
-        sol.visualizeSolution();
-
-
-        /*
-        sol2.goal.state.printGrid();
-        System.out.println(sol2.goal.cost);
-        System.out.println("No. of the expanded nodes = "+ sol2.expanSequence.size() + " " + sol2.solutionExist);
-        
-
-        sol3.goal.state.printGrid();
-        System.out.println(sol3.goal.cost);
-        System.out.println("No. of the expanded nodes = "+ sol3.expanSequence.size() + " " + sol3.solutionExist);
-        
-         */
-    
 
     }
 
