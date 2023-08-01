@@ -17,6 +17,7 @@ public class Node  {
     Node parentNode;
     long  aStarCost;
     long greedyCost;
+    long heuristic;
 
     public void setParent(Node n){
         this.parentNode = n;
@@ -94,6 +95,27 @@ public class Node  {
     // Setter method to set the depth of the node
     public void setDepth(int depth) {
         this.depth = depth;
+    }
+
+    public void setHeuristic(){
+        long h1 = 0;
+        long h2 = 0;
+        int agentCol = state.agentCol;
+        for(int i= agentCol+2;i<state.grid[1].length;i++){
+            if(state.grid[1][i] ==2) h1++;
+            else if(state.grid[1][i] ==3) h1+=1000;
+        }
+        for(int i=0; i<state.furniture.size(); i++){
+            Furniture f = furniture.get(i);
+            if(f.x > state.agentCol+1 && f.orientation == 'V'){
+                if(f.y == 0) h2+=2;
+                else if (f.y == 1) h2++;
+            }
+
+        }
+        heuristic = h1+h2;
+        aStarCost = heuristic;
+        greedyCost = heuristic + cost;
     }
 }
 
