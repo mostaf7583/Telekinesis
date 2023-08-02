@@ -52,7 +52,7 @@ The implementation involves generating a random grid with furniture, creating a 
 
 4. `Search` Class: The `Search` class contains various search algorithms to solve the Telekinesis problem. The implemented algorithms include Breadth-First Search (BFS), Depth-First Search (DFS), Depth-Limited Search (DLS), Iterative Deepening Search (IDS), Uniform Cost Search (UCS), A* Search, and Greedy Search. These algorithms explore the search space to find a sequence of movements that lead to the goal state.
 
-5. Heuristics: In your implementation, you have used two heuristics: `h1()` and `setHeuristic()`. Heuristics are used in informed search algorithms (A* and Greedy Search) to estimate the distance from a node to the goal state. The `h1()` method provides a simple heuristic that returns 0, effectively turning A* and Greedy Search into Uniform Cost Search and BFS, respectively. The `setHeuristic()` method calculates a more sophisticated heuristic that considers the number of obstacles and their positions.
+5. Heuristics: In implementation,  ''  have used two heuristics: `h1()` and `setHeuristic()`. Heuristics are used in informed search algorithms (A* and Greedy Search) to estimate the distance from a node to the goal state. The `h1()` method provides a simple heuristic that returns 0, effectively turning A* and Greedy Search into Uniform Cost Search and BFS, respectively. The `setHeuristic()` method calculates a more sophisticated heuristic that considers the number of obstacles and their positions.
 
 6. Search Algorithms: Each search algorithm in the `Search` class explores the search space by expanding nodes, generating successor nodes, and adding them to the search queue. The algorithms use various data structures (e.g., `ArrayList`, `LinkedList`, `HashSet`) to manage the search process efficiently.
 
@@ -61,60 +61,60 @@ The implementation involves generating a random grid with furniture, creating a 
 ##  implemention  the various search algorithms
 
 1. Breadth-First Search (BFS):
-   - You used an `ArrayList` called `queue` to store the nodes to be expanded.
-   - You used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
+   - we used an `ArrayList` called `queue` to store the nodes to be expanded.
+   - we used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
    - The `expandSequence` is an `ArrayList` that stores the sequence of nodes expanded during the search process.
-   - You applied the BFS strategy by adding newly generated nodes at the end of the queue using `queue.add(newNode)`.
-   - You used `queue.remove(0)` to retrieve and remove the first node from the queue (frontier) for expansion.
-   - You checked for the goal state using the `node.goaltest()` method.
+   - we applied the BFS strategy by adding newly generated nodes at the end of the queue using `queue.add(newNode)`.
+   - we used `queue.remove(0)` to retrieve and remove the first node from the queue (frontier) for expansion.
+   - we checked for the goal state using the `node.goaltest()` method.
    - The BFS search process continues until the queue becomes empty.
 
 2. Depth-First Search (DFS):
-   - Similar to BFS, you used an `ArrayList` called `queue` to store the nodes to be expanded.
-   - You used the `uniqueStates` list to keep track of unique grid states.
+   - Similar to BFS, we used an `ArrayList` called `queue` to store the nodes to be expanded.
+   - we used the `uniqueStates` list to keep track of unique grid states.
    - The `expandSequence` list stores the sequence of nodes expanded during the search process.
-   - You applied the DFS strategy by adding newly generated nodes at the beginning of the queue using `queue.add(0, newNode)`.
-   - You used `queue.remove(0)` to retrieve and remove the first node from the queue (frontier) for expansion.
-   - Like BFS, you checked for the goal state using the `node.goaltest()` method.
+   - we applied the DFS strategy by adding newly generated nodes at the beginning of the queue using `queue.add(0, newNode)`.
+   - we used `queue.remove(0)` to retrieve and remove the first node from the queue (frontier) for expansion.
+   - Like BFS, we checked for the goal state using the `node.goaltest()` method.
    - The DFS search process continues until the queue becomes empty.
 
 3. Depth-Limited Search (DLS):
-   - In the `depthLimited` method, you used a `Queue` (specifically, a `LinkedList`) called `queue` to store the nodes to be expanded.
-   - You used a `HashSet` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
+   - In the `depthLimited` method, we used a `Queue` (specifically, a `LinkedList`) called `queue` to store the nodes to be expanded.
+   - we used a `HashSet` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
    - The `expandSequence` is an `ArrayList` that stores the sequence of nodes expanded during the search process.
-   - You set a depth limit (`depthLimit`) to control the depth of exploration in the search tree.
-   - You applied the DFS strategy with depth limitation by not expanding nodes beyond the specified depth limit.
+   - we set a depth limit (`depthLimit`) to control the depth of exploration in the search tree.
+   - we applied the DFS strategy with depth limitation by not expanding nodes beyond the specified depth limit.
    - If a node's depth is less than the depth limit, its successors are added to the queue for further exploration.
-   - You checked for the goal state using the `node.goaltest()` method.
+   - we checked for the goal state using the `node.goaltest()` method.
    - The DLS process continues until the queue becomes empty.
 
 4. Iterative Deepening Search (IDS):
-   - In the `iterativeDeepening` method, you iteratively apply the `depthLimited` method with increasing depth limits until a solution is found.
+   - In the `iterativeDeepening` method, we iteratively apply the `depthLimited` method with increasing depth limits until a solution is found.
    - The `iterativeDeepening` method returns a `Solution` object with the results of the search, including the expansion sequence and whether a solution was found.
-   - By repeatedly performing DLS with increasing depth limits, you ensure that you explore the search space deeper and deeper until a solution is found.
+   - By repeatedly performing DLS with increasing depth limits, we ensure that we explore the search space deeper and deeper until a solution is found.
 
 5. Uniform Cost Search (UCS):
-   - You used an `ArrayList` called `queue` to store the nodes to be expanded.
-   - You used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
+   - we used an `ArrayList` called `queue` to store the nodes to be expanded.
+   - we used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
    - The `expandSequence` is an `ArrayList` that stores the sequence of nodes expanded during the search process.
-   - You implemented UCS by sorting the queue based on the cost of nodes using the `Sortbycost` comparator.
+   - we implemented UCS by sorting the queue based on the cost of nodes using the `Sortbycost` comparator.
    - Nodes with lower costs are expanded first to prioritize paths with lower cumulative costs.
    - The UCS search process continues until the queue becomes empty.
 
 6. A* Search:
-   - You used an `ArrayList` called `queue` to store the nodes to be expanded.
-   - You used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
+   - we used an `ArrayList` called `queue` to store the nodes to be expanded.
+   - we used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
    - The `expandSequence` is an `ArrayList` that stores the sequence of nodes expanded during the search process.
-   - You implemented A* search by sorting the queue based on the A* cost of nodes using the `SortbyaStar_cost` comparator.
+   - we implemented A* search by sorting the queue based on the A* cost of nodes using the `SortbyaStar_cost` comparator.
    - The A* cost combines the actual cost to reach the node and the estimated cost from the node to the goal state using the heuristic function.
    - Nodes with lower A* costs are expanded first, leading to the exploration of more promising paths.
    - The A* search process continues until the queue becomes empty.
 
 7. Greedy Search:
-   - You used an `ArrayList` called `queue` to store the nodes to be expanded.
-   - You used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
+   - we used an `ArrayList` called `queue` to store the nodes to be expanded.
+   - we used an `ArrayList` called `uniqueStates` to keep track of unique grid states to avoid duplicates.
    - The `expandSequence` is an `ArrayList` that stores the sequence of nodes expanded during the search process.
-   - You implemented Greedy search by sorting the queue based on the greedy cost of nodes using the `Sortbyhersic` comparator.
+   - we implemented Greedy search by sorting the queue based on the greedy cost of nodes using the `Sortbyhersic` comparator.
    - The greedy cost is based solely on the heuristic function and represents the estimated distance to the goal state.
    - Nodes with lower greedy costs are expanded first, prioritizing nodes that seem to be closer to the goal state.
    - The Greedy search process continues until the queue becomes empty.
