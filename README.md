@@ -1,4 +1,3 @@
-Sure, here's the report converted to Markdown format:
 
 # Telekinesis Game: Search Algorithms Implementation
 
