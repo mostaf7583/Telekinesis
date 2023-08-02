@@ -56,7 +56,7 @@ The implementation involves generating a random grid with furniture, creating a 
 
 7. Solution: The `Solution` class is used to store the results of each search algorithm, including the expansion sequence, remaining nodes in the queue, the goal node (if found), and a boolean indicating whether a solution exists.
 
-## how you implemented the various search algorithms
+##  implemention  the various search algorithms
 
 1. Breadth-First Search (BFS):
    - You used an `ArrayList` called `queue` to store the nodes to be expanded.
