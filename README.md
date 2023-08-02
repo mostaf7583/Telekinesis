@@ -5,7 +5,7 @@
 
 The problem is to implement a telekinesis game in which a telekinetic agent has the ability to move furniture within a room represented as an n × m grid. The furniture can be either horizontally or vertically placed and occupies two or three grid cells. The agent itself occupies two horizontal cells in the second row from the top of the room and can move left or right. The goal of the game is to create a plan using search algorithms to move the furniture in such a way that the agent can reach the only exit on the right-most cell of the second row.
 ## visual repreesentation of the grid
-![image](https://user-images.githubusercontent.com/86190960/122679985-0b0b6b00-d1e5-11eb-9b0a-8b8b0b8b6b0a.png)
+![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
 
 ## Implementation Overview
 
