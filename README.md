@@ -414,7 +414,31 @@ The goal:
 =======================================
 ```
 
+Based on the provided information, here is a comparison of the performance of the implemented search algorithms in terms of completeness, optimality, and the number of expanded nodes:
 
+1. **Breadth-First Search:**
+   - Completeness: BFS is complete, meaning that it will always find a solution if one exists.
+   - Optimality: BFS is optimal when all actions have the same cost since it explores nodes level by level, and the first goal node found is the shallowest one.
+   - Number of Expanded Nodes: 26
+
+2. **Depth-First Search:**
+   - Completeness: DFS is not complete in infinite state spaces or when there are loops, as it may get stuck in an infinite loop.
+   - Optimality: DFS is not guaranteed to be optimal since it explores deeper levels before exploring shallower ones.
+   - Number of Expanded Nodes: 4
+
+3. **Iterative Deepening Search:**
+   - Completeness: IDS is complete, as it combines BFS and DFS, guaranteeing that it will find a solution if one exists.
+   - Optimality: IDS is optimal when all actions have the same cost, and it finds the shortest path among all the DFS paths.
+   - Number of Expanded Nodes: 26
+
+4. **Uniform Cost Search:**
+   - Completeness: UCS is complete, ensuring that it will find a solution if one exists, as long as the step cost is greater than zero.
+   - Optimality: UCS is optimal as it explores nodes with the lowest path cost first, ensuring it finds the least-cost solution.
+   - Number of Expanded Nodes: 14
+
+In summary, among the implemented search algorithms, Uniform Cost Search (UCS) has the best performance in terms of optimality, as it always finds the optimal solution. However, it expands fewer nodes compared to Breadth-First Search (BFS) and Iterative Deepening Search (IDS), indicating a more efficient search process. Depth-First Search (DFS) has the fewest expanded nodes but is not optimal and may not find a solution in certain situations.
+
+The choice of which algorithm to use depends on the specific problem requirements. If optimality is crucial and the search space is not too large, UCS is the best choice. If the search space is large and memory is a concern, BFS may not be feasible, and IDS or DFS could be used with some trade-offs between optimality and the number of expanded nodes.
 ## Conclusion
 
 The implementation provides a solid foundation for implementing various search algorithms to find an optimal path for the agent to reach the goal state in the telekinesis game. The use of priority queues and heuristic functions allows for more efficient exploration of the search space, which is essential for solving complex problems.
