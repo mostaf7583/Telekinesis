@@ -217,7 +217,6 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x][f.y] = 0;
             clonedGrid.grid[f.x][rigthCellPos] = 3;
             clonedGrid.cost++;
-            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.y = f.y+1;
@@ -233,7 +232,6 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x][f.y+f.length-1] = 0;
             clonedGrid.grid[f.x][leftCellPos] = 3;
             clonedGrid.cost++;
-            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.y = f.y-1;
@@ -249,7 +247,6 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x+f.length-1][f.y] = 0;
             clonedGrid.grid[upCellPos][f.y] = 2;
             clonedGrid.cost++;
-            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.x = f.x-1;
@@ -265,7 +262,6 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x][f.y] = 0;
             clonedGrid.grid[downCellPos][f.y] = 2;
             clonedGrid.cost++;
-            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.x = f.x+1;

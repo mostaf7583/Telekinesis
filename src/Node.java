@@ -57,11 +57,13 @@ public class Node  {
                 Node x = new Node(state.moveUp(f));
                 x.depth = this.depth+1;
                 x.setParent(this);
+                x.setHeuristic();
                 leaves.add(x);
 
                 Node y = new Node(state.moveDown(f));
                 y.depth = this.depth+1;
                 y.setParent(this);
+                y.setHeuristic();
                 leaves.add(y);
                 
             }
@@ -69,11 +71,13 @@ public class Node  {
                 Node x = new Node(state.moveRight(f));
                 x.depth = this.depth+1;
                 x.setParent(this);
+                x.setHeuristic();
                 leaves.add(x);
 
                 Node y = new Node(state.moveLeft(f));
                 y.depth = this.depth+1;
                 y.setParent(this);
+                y.setHeuristic();
                 leaves.add(y);
             }
         }
@@ -105,8 +109,8 @@ public class Node  {
             if(state.grid[1][i] ==2) h1++;
             else if(state.grid[1][i] ==3) h1+=1000;
         }
-        for(int i=0; i<state.furniture.size(); i++){
-            Furniture f = furniture.get(i);
+        for(int i=0; i<state.furnitures.size(); i++){
+            Furniture f = state.furnitures.get(i);
             if(f.x > state.agentCol+1 && f.orientation == 'V'){
                 if(f.y == 0) h2+=2;
                 else if (f.y == 1) h2++;
