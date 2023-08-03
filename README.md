@@ -1,5 +1,5 @@
 
-# Telekinesis Game: 
+# Telekinesis Game
 
 ## Problem Description
 
