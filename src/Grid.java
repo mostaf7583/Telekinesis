@@ -217,6 +217,7 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x][f.y] = 0;
             clonedGrid.grid[f.x][rigthCellPos] = 3;
             clonedGrid.cost++;
+            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.y = f.y+1;
@@ -232,6 +233,7 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x][f.y+f.length-1] = 0;
             clonedGrid.grid[f.x][leftCellPos] = 3;
             clonedGrid.cost++;
+            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.y = f.y-1;
@@ -247,6 +249,7 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x+f.length-1][f.y] = 0;
             clonedGrid.grid[upCellPos][f.y] = 2;
             clonedGrid.cost++;
+            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.x = f.x-1;
@@ -262,6 +265,7 @@ public class Grid implements Cloneable{
             clonedGrid.grid[f.x][f.y] = 0;
             clonedGrid.grid[downCellPos][f.y] = 2;
             clonedGrid.cost++;
+            clonedGrid.setHeuristic();
             for(Furniture s: clonedGrid.furnitures){
                 if(s.compare(f)){
                     s.x = f.x+1;
@@ -351,31 +355,20 @@ public class Grid implements Cloneable{
     }
 
     public static void main(String[] args) {
-        /*
-        Grid grid = Grid.generateGridTest();
-        grid.printGrid();
-        Furniture f = grid.furnitures.get(0);
-        System.out.println("------------");
-        grid.moveDown(f).moveDown(f).printGrid();
-        //grid.saveGridToFile("grid.txt"); 
-       */
 
         Grid grid = new Grid();
-        grid.generateGrid();
+        grid.generateGridTest();
 
         Node root = new Node(grid);
-
+        
         Search strategy = new Search();
-        Solution sol = strategy.breadthFirst(root);
+        Solution sol1 = strategy.breadthFirst(root);
         Solution sol2 = strategy.depthFirst(root);
-        sol.goal.state.printGrid();
-        System.out.println(sol.goal.cost);
-        System.out.println("No. of the expanded nodes = "+ sol.expanSequence.size() + " " + sol.solutionExist);
-        sol2.goal.state.printGrid();
-        System.out.println(sol2.goal.cost);
-        System.out.println("No. of the expanded nodes = "+ sol2.expanSequence.size() + " " + sol2.solutionExist);
-         
-    
+        Solution sol3 = strategy.iterativeDeepening(root);
+        Solution sol4 = strategy.uniformCost(root);
+        
+        sol4.visualizeSolution();
+
 
     }
 
