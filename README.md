@@ -36,7 +36,9 @@ In the context of the problem description, the initial state consists of the fol
 4. Exit position: There is a single exit on the right-most cell of the second row of the grid. The goal of the game is to move the furniture in such a way that the agent can reach this exit.
 
 The initial state is the starting point from which the search algorithms explore the possible configurations of the room to find a plan for the agent to reach the exit. The search process will involve expanding nodes and generating child states by applying valid moves to the furniture pieces until the goal state is reached or until all possible configurations have been explored.
-![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
+<br>
+<br>
+![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.33.46.jpg)
 **The goal test:** in the context of the telekinesis game is a condition that checks whether the current state represents the goal state. In other words, it determines whether the agent has successfully reached the exit on the right-most cell of the second row.
 
 For the telekinesis game, the goal test can be defined as follows:
@@ -53,7 +55,10 @@ When applying search algorithms to find a solution path, the path cost is an ess
 For example, in the telekinesis game, each move or action taken by the agent to rearrange the furniture may have an associated cost. The path cost for reaching a particular state in the game will be the sum of the costs of all the moves taken to reach that state from the initial configuration of the room.
 
 In summary, the path cost represents the total cost incurred in moving from the initial state to a particular state during the search process. It plays a crucial role in determining the optimality of the solution path found by the search algorithms.
-![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.33.46.jpg)
+<br>
+<br>
+![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
+
 
 
 ## Implementation Overview
