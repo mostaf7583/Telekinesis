@@ -5,7 +5,7 @@
 
 The problem is to implement a telekinesis game in which a telekinetic agent has the ability to move furniture within a room represented as an n × m grid. The furniture can be either horizontally or vertically placed and occupies two or three grid cells. The agent itself occupies two horizontal cells in the second row from the top of the room and can move left or right. The goal of the game is to create a plan using search algorithms to move the furniture in such a way that the agent can reach the only exit on the right-most cell of the second row.
 ## Search problem ADT
-Search problem represented as 5-tuples
+Search problem represented as 5-tuples /n
 *actions* (operators):
    In the Telekinesis problem, the set of actions available to the agent consists of moving the furniture pieces either horizontally or vertically within the grid. The agent can move the furniture pieces one step at a time, either to the left, right, up, or down, depending on the orientation of the furniture and the available empty spaces in the grid.
 
