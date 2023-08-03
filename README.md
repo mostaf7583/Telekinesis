@@ -248,7 +248,7 @@ Remember to handle any exceptions that may arise during the program's execution 
 ## Performance Comparison
 
 The performance of various search algorithms was tested and compared based on the number of search tree nodes expanded. The algorithms that were implemented and compared include:
-
+```
 1.Breadth First Search <br>
 Cost: 2
 No. of the expanded nodes = 26
@@ -412,6 +412,7 @@ The goal:
 | 5 | - | - | - | - | - | - | - |
 +---+---+---+---+---+---+---+---+
 =======================================
+```
 
 
 ## Conclusion
