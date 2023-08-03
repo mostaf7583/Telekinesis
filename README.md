@@ -119,7 +119,57 @@ The implementation involves generating a random grid with furniture, creating a 
    - Nodes with lower greedy costs are expanded first, prioritizing nodes that seem to be closer to the goal state.
    - The Greedy search process continues until the queue becomes empty.
 
+## To run the program and interpret the output, follow these steps:
 
+1. Open your Java development environment (e.g., Eclipse, IntelliJ, or Visual Studio Code).
+
+2. Create a new Java project and add the necessary classes (`Grid`, `Furniture`, `Node`, `Search`, and any other supporting classes) to the project.
+
+3. Ensure that you have the `CommandLineTable` class available (you can find this class online or use a library that provides similar functionality). This class is used for visualizing the grid in a tabular format.
+
+4. In the `Grid` class, ensure that the `printGrid()` method is updated with the table visualization code using `CommandLineTable`, as shown in your previous implementation.
+
+5. In the `Grid` class, implement the `moveLeft(Furniture f)` method similar to the `moveRight(Furniture f)` method to move the furniture left.
+
+6. In the `Node` class, make sure the heuristic functions `h1()` and `setHeuristic()` are correctly implemented. These functions should provide meaningful heuristic estimates for the search algorithms (e.g., Manhattan distance to the goal state).
+
+7. In the `Search` class, ensure that the search algorithms (`breadthFirst`, `depthFirst`, `depthLimited`, `iterativeDeepening`, `uniformCost`, `aStar`, and `greedySearch`) are implemented correctly.
+
+8. In the `main` method or a separate class, you can perform the following steps:
+
+   a. Generate a grid using the `Grid.generateGrid()` method.
+
+   b. Create a root node with the generated grid.
+
+   c. Use the search algorithms from the `Search` class to find a solution.
+
+9. To interpret the output, the `Solution` class should provide necessary information about the search process and results. The `Solution` class may contain:
+
+   - The sequence of expanded nodes (`expandSequence`).
+   - The list of nodes remaining in the frontier (`queue`) when the goal state is reached.
+   - The goal node, indicating whether a solution is found (`solutionExist`).
+
+10. After running the search algorithms, you can print the output to the console. For example:
+
+   a. Print the grid representation of each node in the expanded sequence and the final state.
+
+   b. Display the list of nodes remaining in the frontier when the goal state is reached.
+
+   c. Indicate whether a solution is found or not.
+
+11. To interpret the output, consider the following:
+
+   - If a solution is found, you can analyze the sequence of expanded nodes to understand the search path and the explored states.
+   
+   - Observe the nodes remaining in the frontier, as they represent potential next steps in the search process.
+
+   - Pay attention to the search algorithm's efficiency in finding a solution. Compare the number of expanded nodes and the search time for different algorithms.
+
+   - Check if the heuristic functions impact the performance of informed search algorithms (A* and Greedy Search).
+
+12. You may experiment with different grid sizes, furniture configurations, and heuristic functions to observe how they affect the search algorithms' behavior and performance.
+
+Remember to handle any exceptions that may arise during the program's execution and ensure that the classes are correctly imported and referenced in the main program. With these steps, you should be able to run the program, visualize the grid, and interpret the output to understand the behavior of the implemented search algorithms on the Telekinesis problem.
 
 
 .
