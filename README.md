@@ -1,5 +1,5 @@
 
-# Telekinesis Game: Search Algorithms Implementation
+# Telekinesis Game: 
 
 ## Problem Description
 
