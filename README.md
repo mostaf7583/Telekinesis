@@ -1,12 +1,64 @@
 
-# Telekinesis Game: Search Algorithms Implementation
+# Telekinesis Game
 
 ## Problem Description
 
 The problem is to implement a telekinesis game in which a telekinetic agent has the ability to move furniture within a room represented as an n × m grid. The furniture can be either horizontally or vertically placed and occupies two or three grid cells. The agent itself occupies two horizontal cells in the second row from the top of the room and can move left or right. The goal of the game is to create a plan using search algorithms to move the furniture in such a way that the agent can reach the only exit on the right-most cell of the second row.
-## visual repreesentation of the grid
-![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
+## Search problem ADT
+Search problem represented as 5-tuples
+<br>**Actions** (operators):
+   In the Telekinesis problem, the set of actions available to the agent consists of moving the furniture pieces either horizontally or vertically within the grid. The agent can move the furniture pieces one step at a time, either to the left, right, up, or down, depending on the orientation of the furniture and the available empty spaces in the grid.
+
+The actions available to the agent can be summarized as follows:
+
+1. Move Furniture Horizontally: If a furniture piece is oriented horizontally, the agent can move it one step to the left or one step to the right, as long as there is an empty space in the corresponding direction.
+
+2. Move Furniture Vertically: If a furniture piece is oriented vertically, the agent can move it one step up or one step down, provided that there is an empty space in the corresponding direction.
+
+3. No Action: The agent can also choose not to move any furniture piece in a given step.
+
+It's important to note that the agent cannot push furniture pieces through obstacles or move them diagonally. Additionally, the agent can only move one furniture piece at a time, and it cannot skip over other furniture pieces.
+
+The goal of the agent is to rearrange the furniture in the grid to create a clear path from the starting position (usually on the left side) to the goal position (usually on the right side) for the agent to reach the target location.
+
+By applying the available actions strategically, the agent can navigate the grid, rearranging the furniture pieces to create a clear path toward the goal state, eventually reaching the target position and solving the Telekinesis problem.
+2.**Thw initial state :**
+The initial state of the telekinesis game is the starting configuration of the room represented as an n × m grid. The grid contains furniture objects, and the agent is positioned in the room at the beginning of the game.
+
+In the context of the problem description, the initial state consists of the following elements:
+                     
+1. The room grid: The grid is represented by an n × m matrix, where each cell can be empty, occupied by the agent, or occupied by a piece of furniture. The furniture can be placed either horizontally or vertically and occupies two or three adjacent cells.
+
+2. Agent position: The agent is represented by a two-cell horizontal block, positioned in the second row from the top of the grid. The agent can move left or right within the row.
+
+3. Furniture placement: Furniture objects are placed in different positions on the grid, occupying two or three adjacent cells. The furniture can be oriented either horizontally or vertically.
+
+4. Exit position: There is a single exit on the right-most cell of the second row of the grid. The goal of the game is to move the furniture in such a way that the agent can reach this exit.
+
+The initial state is the starting point from which the search algorithms explore the possible configurations of the room to find a plan for the agent to reach the exit. The search process will involve expanding nodes and generating child states by applying valid moves to the furniture pieces until the goal state is reached or until all possible configurations have been explored.
+<br>
+<br>
 ![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.33.46.jpg)
+**The goal test:** in the context of the telekinesis game is a condition that checks whether the current state represents the goal state. In other words, it determines whether the agent has successfully reached the exit on the right-most cell of the second row.
+
+For the telekinesis game, the goal test can be defined as follows:
+
+1. Check if the agent's position (represented by a two-cell horizontal block) is on the right-most cell of the second row.
+
+If the agent is in the desired position (on the right-most cell of the second row), then the goal test evaluates to true, indicating that the goal state has been achieved. This means that the agent has successfully reached the exit, and the game has been won.
+
+During the search process, the goal test is applied to each state explored by the search algorithms. If the goal test evaluates to true for a particular state, the search process terminates, and the solution is found. On the other hand, if the goal test evaluates to false for all states, the search algorithms continue exploring until a solution is found or all possible configurations have been explored.<br><br><br>
+**The path cost**, often denoted as "g(n)", is the cumulative cost of reaching a particular node in the search space from the initial state. In the context of search algorithms, the path cost is the sum of the costs of all the actions taken to reach a specific node in the search tree from the initial state.
+
+When applying search algorithms to find a solution path, the path cost is an essential factor in determining the optimal path. Different actions or moves in the search space may have different costs associated with them. The goal of the search algorithms is to find the path with the lowest total cost, i.e., the path with the minimum path cost.
+
+For example, in the telekinesis game, each move or action taken by the agent to rearrange the furniture may have an associated cost. The path cost for reaching a particular state in the game will be the sum of the costs of all the moves taken to reach that state from the initial configuration of the room.
+
+In summary, the path cost represents the total cost incurred in moving from the initial state to a particular state during the search process. It plays a crucial role in determining the optimality of the solution path found by the search algorithms.
+<br>
+<br>
+![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
+
 
 
 ## Implementation Overview
@@ -118,24 +170,313 @@ The implementation involves generating a random grid with furniture, creating a 
    - The greedy cost is based solely on the heuristic function and represents the estimated distance to the goal state.
    - Nodes with lower greedy costs are expanded first, prioritizing nodes that seem to be closer to the goal state.
    - The Greedy search process continues until the queue becomes empty.
+8.1st Heuristic Function: Measuring Furniture Distance from the Second Row:
+
+The 1st heuristic function measures the distance of the furniture from the second row of the room. This heuristic estimates the cost from the current state to the goal state by considering how far the furniture needs to be moved vertically to align with the second row.
+
+**Admissibility of the 1st Heuristic:**
+
+For a heuristic to be admissible, it must satisfy two conditions:
+
+1. **Consistency (or Monotonicity):** A heuristic is consistent if the estimated cost from a given state to the goal state is not greater than the cost from that state to its successor states plus the actual cost of reaching the successor states. Mathematically, for every state "n" and every successor "n'" of state "n" generated by an action "a," the following must hold:
+
+   h(n) ≤ cost(n, a, n') + h(n')
+
+   In the context of the 1st heuristic, if "h1(n)" is the value of the 1st heuristic function for state "n" and "h1(n')" is the value of the 1st heuristic function for the successor state "n'", then the distance of the furniture in the successor state must be less than or equal to the distance of the furniture in the current state plus the cost of the action taken to reach the successor state.
+
+2. **Admissibility:** A heuristic is admissible if it never overestimates the actual cost from the current state to the goal state. In other words, the heuristic value must be lower than or equal to the actual cost.
+
+**Explanation:**
+
+The 1st heuristic function measures the vertical distance between the furniture and the second row of the room. It provides a consistent heuristic for the telekinesis game because the actual cost of moving the furniture vertically is at least equal to or greater than the heuristic's estimated distance.
+
+Since the agent can only move furniture up or down, the 1st heuristic's estimate will always be less than or equal to the actual cost of reaching the goal state. Therefore, the 1st heuristic is admissible for the telekinesis game.
+
+9.2nd Heuristic Function: Counting Vertical Furniture in the Second Row:
+
+The 2nd heuristic function counts the number of vertical furniture pieces that are in front of the agent on the second row. This heuristic estimates the cost by considering how many vertical furniture pieces need to be moved to open the agent's path to the goal.
+
+**Admissibility of the 2nd Heuristic:**
+
+Similar to the 1st heuristic, for the 2nd heuristic to be admissible, it must satisfy the two conditions of consistency and admissibility.
+
+**Explanation:**
+
+The 2nd heuristic function counts the number of vertical furniture pieces in the second row that are in front of the agent. It provides a consistent and admissible heuristic for the telekinesis game.
+
+Since the agent can only move furniture in a vertical direction, the actual cost of moving the vertical furniture is at least equal to or greater than the 2nd heuristic's estimated count. The heuristic value will never overestimate the actual cost, making it admissible.
+
+In summary, both the 1st and 2nd heuristic functions are admissible for the telekinesis game, meaning they provide optimistic estimates of the actual cost to reach the goal state. These heuristics play a crucial role in guiding the search algorithms like A* and Greedy search towards finding an optimal path for the agent to reach the exit in an efficient manner.
 
 
+## To run the program and interpret the output, follow these steps:
+
+1. Open your Java development environment (e.g., Eclipse, IntelliJ, or Visual Studio Code).
+
+2. Create a new Java project and add the necessary classes (`Grid`, `Furniture`, `Node`, `Search`, and any other supporting classes) to the project.
+
+3. Ensure that you have the `CommandLineTable` class available (you can find this class online or use a library that provides similar functionality). This class is used for visualizing the grid in a tabular format.
+
+4. In the `Grid` class, ensure that the `printGrid()` method is updated with the table visualization code using `CommandLineTable`, as shown in your previous implementation.
+
+5. In the `Grid` class, implement the `moveLeft(Furniture f)` method similar to the `moveRight(Furniture f)` method to move the furniture left.
+
+6. In the `Node` class, make sure the heuristic functions `h1()` and `setHeuristic()` are correctly implemented. These functions should provide meaningful heuristic estimates for the search algorithms (e.g., Manhattan distance to the goal state).
+
+7. In the `Search` class, ensure that the search algorithms (`breadthFirst`, `depthFirst`, `depthLimited`, `iterativeDeepening`, `uniformCost`, `aStar`, and `greedySearch`) are implemented correctly.
+
+8. In the `main` method or a separate class, you can perform the following steps:
+
+   a. Generate a grid using the `Grid.generateGrid()` method.
+
+   b. Create a root node with the generated grid.
+
+   c. Use the search algorithms from the `Search` class to find a solution.
+
+9. To interpret the output, the `Solution` class should provide necessary information about the search process and results. The `Solution` class may contain:
+
+   - The sequence of expanded nodes (`expandSequence`).
+   - The list of nodes remaining in the frontier (`queue`) when the goal state is reached.
+   - The goal node, indicating whether a solution is found (`solutionExist`).
+
+10. After running the search algorithms, you can print the output to the console. For example:
+
+   a. Print the grid representation of each node in the expanded sequence and the final state.
+
+   b. Display the list of nodes remaining in the frontier when the goal state is reached.
+
+   c. Indicate whether a solution is found or not.
+
+11. To interpret the output, consider the following:
+
+   - If a solution is found, you can analyze the sequence of expanded nodes to understand the search path and the explored states.
+   
+   - Observe the nodes remaining in the frontier, as they represent potential next steps in the search process.
+
+   - Pay attention to the search algorithm's efficiency in finding a solution. Compare the number of expanded nodes and the search time for different algorithms.
+
+   - Check if the heuristic functions impact the performance of informed search algorithms (A* and Greedy Search).
+
+12. You may experiment with different grid sizes, furniture configurations, and heuristic functions to observe how they affect the search algorithms' behavior and performance.
+
+Remember to handle any exceptions that may arise during the program's execution and ensure that the classes are correctly imported and referenced in the main program. With these steps, you should be able to run the program, visualize the grid, and interpret the output to understand the behavior of the implemented search algorithms on the Telekinesis problem.
+###  Example:
+```
+ public static void main(String[] args) {
+
+        Grid grid = new Grid();
+        grid.generateGridTest();
+
+        Node root = new Node(grid);
+        
+        Search strategy = new Search();
+        Solution sol1 = strategy.breadthFirst(root);
+        Solution sol2 = strategy.depthFirst(root);
+        Solution sol3 = strategy.iterativeDeepening(root);
+        Solution sol4 = strategy.uniformCost(root);
+        
+        sol4.visualizeSolution();
+
+
+    }
+```
 
 
 .
 ## Performance Comparison
 
 The performance of various search algorithms was tested and compared based on the number of search tree nodes expanded. The algorithms that were implemented and compared include:
+```
+1.Breadth First Search <br>
+Cost: 2
+No. of the expanded nodes = 26
+Solution steps representation starting from the root: 
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | V | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | - | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+The goal:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | - | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | - | H | H | H | V | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+2.Depth First Search <br>
+Cost: 3
+No. of the expanded nodes = 4
+Solution steps representation starting from the root:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | V | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | - | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | V | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | - | - |
+| 4 | V | H | H | H | - | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | H | H | H | - | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+The goal:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | - | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | H | H | H | - | V | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+3.Iterative Deepening Search+ <br>
+Cost: 2
+No. of the expanded nodes = 26
+Solution steps representation starting from the root:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | V | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | - | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+The goal:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | - | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | - | H | H | H | V | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+4.Uniform Cost Search <br>
+Cost: 2
+No. of the expanded nodes = 14
+Solution steps representation starting from the root:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | V | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | - | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | V | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | - | H | H | H | - | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+The goal:
++---+---+---+---+---+---+---+---+
+|   | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
++---+---+---+---+---+---+---+---+
+| 0 | - | - | - | - | - | - | - |
+| 1 | A | A | - | - | - | - | - |
+| 2 | - | - | H | H | - | V | - |
+| 3 | V | - | - | - | - | V | - |
+| 4 | V | - | H | H | H | V | - |
+| 5 | - | - | - | - | - | - | - |
++---+---+---+---+---+---+---+---+
+=======================================
+```
 
-1. Breadth-First Search
-2. Depth-First Search
-3. Iterative Deepening Search
-4. Uniform-Cost Search
-5. Greedy Search with Two Heuristics
-6. A* Search with Two Admissible Heuristics
+Based on the provided information, here is a comparison of the performance of the implemented search algorithms in terms of completeness, optimality, and the number of expanded nodes:
 
+1. **Breadth-First Search:**
+   - Completeness: BFS is complete, meaning that it will always find a solution if one exists.
+   - Optimality: BFS is optimal when all actions have the same cost since it explores nodes level by level, and the first goal node found is the shallowest one.
+   - Number of Expanded Nodes: 26
 
+2. **Depth-First Search:**
+   - Completeness: DFS is not complete in infinite state spaces or when there are loops, as it may get stuck in an infinite loop.
+   - Optimality: DFS is not guaranteed to be optimal since it explores deeper levels before exploring shallower ones.
+   - Number of Expanded Nodes: 4
 
+3. **Iterative Deepening Search:**
+   - Completeness: IDS is complete, as it combines BFS and DFS, guaranteeing that it will find a solution if one exists.
+   - Optimality: IDS is optimal when all actions have the same cost, and it finds the shortest path among all the DFS paths.
+   - Number of Expanded Nodes: 26
+
+4. **Uniform Cost Search:**
+   - Completeness: UCS is complete, ensuring that it will find a solution if one exists, as long as the step cost is greater than zero.
+   - Optimality: UCS is optimal as it explores nodes with the lowest path cost first, ensuring it finds the least-cost solution.
+   - Number of Expanded Nodes: 14
+
+In summary, among the implemented search algorithms, Uniform Cost Search (UCS) has the best performance in terms of optimality, as it always finds the optimal solution. However, it expands fewer nodes compared to Breadth-First Search (BFS) and Iterative Deepening Search (IDS), indicating a more efficient search process. Depth-First Search (DFS) has the fewest expanded nodes but is not optimal and may not find a solution in certain situations.
+
+The choice of which algorithm to use depends on the specific problem requirements. If optimality is crucial and the search space is not too large, UCS is the best choice. If the search space is large and memory is a concern, BFS may not be feasible, and IDS or DFS could be used with some trade-offs between optimality and the number of expanded nodes.
 ## Conclusion
 
 The implementation provides a solid foundation for implementing various search algorithms to find an optimal path for the agent to reach the goal state in the telekinesis game. The use of priority queues and heuristic functions allows for more efficient exploration of the search space, which is essential for solving complex problems.
