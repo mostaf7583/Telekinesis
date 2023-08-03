@@ -4,7 +4,25 @@
 ## Problem Description
 
 The problem is to implement a telekinesis game in which a telekinetic agent has the ability to move furniture within a room represented as an n × m grid. The furniture can be either horizontally or vertically placed and occupies two or three grid cells. The agent itself occupies two horizontal cells in the second row from the top of the room and can move left or right. The goal of the game is to create a plan using search algorithms to move the furniture in such a way that the agent can reach the only exit on the right-most cell of the second row.
-## visual repreesentation of the grid
+## Search problem ADT
+Search problem represented as 5-tuples
+1. actions (operators):
+   In the Telekinesis problem, the set of actions available to the agent consists of moving the furniture pieces either horizontally or vertically within the grid. The agent can move the furniture pieces one step at a time, either to the left, right, up, or down, depending on the orientation of the furniture and the available empty spaces in the grid.
+
+The actions available to the agent can be summarized as follows:
+
+1. Move Furniture Horizontally: If a furniture piece is oriented horizontally, the agent can move it one step to the left or one step to the right, as long as there is an empty space in the corresponding direction.
+
+2. Move Furniture Vertically: If a furniture piece is oriented vertically, the agent can move it one step up or one step down, provided that there is an empty space in the corresponding direction.
+
+3. No Action: The agent can also choose not to move any furniture piece in a given step.
+
+It's important to note that the agent cannot push furniture pieces through obstacles or move them diagonally. Additionally, the agent can only move one furniture piece at a time, and it cannot skip over other furniture pieces.
+
+The goal of the agent is to rearrange the furniture in the grid to create a clear path from the starting position (usually on the left side) to the goal position (usually on the right side) for the agent to reach the target location.
+
+By applying the available actions strategically, the agent can navigate the grid, rearranging the furniture pieces to create a clear path toward the goal state, eventually reaching the target position and solving the Telekinesis problem.
+2.
 ![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
 ![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.33.46.jpg)
 
