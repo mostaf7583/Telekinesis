@@ -22,8 +22,37 @@ It's important to note that the agent cannot push furniture pieces through obsta
 The goal of the agent is to rearrange the furniture in the grid to create a clear path from the starting position (usually on the left side) to the goal position (usually on the right side) for the agent to reach the target location.
 
 By applying the available actions strategically, the agent can navigate the grid, rearranging the furniture pieces to create a clear path toward the goal state, eventually reaching the target position and solving the Telekinesis problem.
-2.
+2.**Thw initial state :**
+The initial state of the telekinesis game is the starting configuration of the room represented as an n × m grid. The grid contains furniture objects, and the agent is positioned in the room at the beginning of the game.
+
+In the context of the problem description, the initial state consists of the following elements:
+                     
+1. The room grid: The grid is represented by an n × m matrix, where each cell can be empty, occupied by the agent, or occupied by a piece of furniture. The furniture can be placed either horizontally or vertically and occupies two or three adjacent cells.
+
+2. Agent position: The agent is represented by a two-cell horizontal block, positioned in the second row from the top of the grid. The agent can move left or right within the row.
+
+3. Furniture placement: Furniture objects are placed in different positions on the grid, occupying two or three adjacent cells. The furniture can be oriented either horizontally or vertically.
+
+4. Exit position: There is a single exit on the right-most cell of the second row of the grid. The goal of the game is to move the furniture in such a way that the agent can reach this exit.
+
+The initial state is the starting point from which the search algorithms explore the possible configurations of the room to find a plan for the agent to reach the exit. The search process will involve expanding nodes and generating child states by applying valid moves to the furniture pieces until the goal state is reached or until all possible configurations have been explored.
 ![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.32.45.jpg)
+**The goal test:** in the context of the telekinesis game is a condition that checks whether the current state represents the goal state. In other words, it determines whether the agent has successfully reached the exit on the right-most cell of the second row.
+
+For the telekinesis game, the goal test can be defined as follows:
+
+1. Check if the agent's position (represented by a two-cell horizontal block) is on the right-most cell of the second row.
+
+If the agent is in the desired position (on the right-most cell of the second row), then the goal test evaluates to true, indicating that the goal state has been achieved. This means that the agent has successfully reached the exit, and the game has been won.
+
+During the search process, the goal test is applied to each state explored by the search algorithms. If the goal test evaluates to true for a particular state, the search process terminates, and the solution is found. On the other hand, if the goal test evaluates to false for all states, the search algorithms continue exploring until a solution is found or all possible configurations have been explored.
+**The path cost**, often denoted as "g(n)", is the cumulative cost of reaching a particular node in the search space from the initial state. In the context of search algorithms, the path cost is the sum of the costs of all the actions taken to reach a specific node in the search tree from the initial state.
+
+When applying search algorithms to find a solution path, the path cost is an essential factor in determining the optimal path. Different actions or moves in the search space may have different costs associated with them. The goal of the search algorithms is to find the path with the lowest total cost, i.e., the path with the minimum path cost.
+
+For example, in the telekinesis game, each move or action taken by the agent to rearrange the furniture may have an associated cost. The path cost for reaching a particular state in the game will be the sum of the costs of all the moves taken to reach that state from the initial configuration of the room.
+
+In summary, the path cost represents the total cost incurred in moving from the initial state to a particular state during the search process. It plays a crucial role in determining the optimality of the solution path found by the search algorithms.
 ![image](https://github.com/mostaf7583/Telekinesis/blob/mo1/images/WhatsApp%20Image%202023-07-23%20at%2015.33.46.jpg)
 
 
