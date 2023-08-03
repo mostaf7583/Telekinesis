@@ -170,6 +170,26 @@ The implementation involves generating a random grid with furniture, creating a 
 12. You may experiment with different grid sizes, furniture configurations, and heuristic functions to observe how they affect the search algorithms' behavior and performance.
 
 Remember to handle any exceptions that may arise during the program's execution and ensure that the classes are correctly imported and referenced in the main program. With these steps, you should be able to run the program, visualize the grid, and interpret the output to understand the behavior of the implemented search algorithms on the Telekinesis problem.
+###  Example:
+```
+ public static void main(String[] args) {
+
+        Grid grid = new Grid();
+        grid.generateGridTest();
+
+        Node root = new Node(grid);
+        
+        Search strategy = new Search();
+        Solution sol1 = strategy.breadthFirst(root);
+        Solution sol2 = strategy.depthFirst(root);
+        Solution sol3 = strategy.iterativeDeepening(root);
+        Solution sol4 = strategy.uniformCost(root);
+        
+        sol4.visualizeSolution();
+
+
+    }
+```
 
 
 .
