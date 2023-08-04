@@ -350,6 +350,43 @@ public class Grid implements Cloneable{
         }
     }
 
+    public static Solution search(Node root,String strategy, char visualize){
+        Solution sol = new Solution();
+        Search search = new Search();
+        if(strategy.equals("BF")){
+            sol = search.breadthFirst(root);
+        }
+        else if(strategy.equals("DF")){
+            sol = search.depthFirst(root);
+        }
+        else if(strategy.equals("ID")){
+            sol = search.iterativeDeepening(root);
+        }
+        else if(strategy.equals("UC")){
+            sol = search.uniformCost(root);
+        }
+        else if(strategy.equals("GR1")){
+            sol = search.greedySearch(root,1);
+        }
+        else if(strategy.equals("GR2")){
+            sol = search.greedySearch(root,2);
+        }
+        else if(strategy.equals("AS1")){
+            sol = search.aStar(root,1);
+        }
+        else if(strategy.equals("AS2")){
+            sol = search.aStar(root,2);
+        }else{
+            System.out.println("Invalid Strategy");
+        }
+
+        if(visualize == 't'){
+            sol.visualizeSolution();
+        }
+        return sol;
+    }
+
+
     public static void main(String[] args) {
 
         Grid grid = new Grid();
@@ -364,6 +401,8 @@ public class Grid implements Cloneable{
         Solution sol4 = strategy.uniformCost(root);
         
         sol4.visualizeSolution();
+        Solution sol = search(root,"AS1",'t');
+
 
 
     }

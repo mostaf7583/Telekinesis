@@ -2,6 +2,7 @@ import java.util.*;
 
 
 public class Search {
+    public Search(){}
     public Solution breadthFirst(Node root) {
         ArrayList<Node> queue = new ArrayList< Node>();
         ArrayList<String> uniqueStates = new ArrayList<String>();
@@ -141,7 +142,7 @@ public class Search {
     }
 
 
-   public Solution aStar(Node root) {
+   public Solution aStar(Node root, int heuri) {
         ArrayList<Node> queue = new ArrayList< Node>();
         ArrayList<String> uniqueStates = new ArrayList<String>();
         ArrayList<Node> expanSequence = new ArrayList<Node>();   
@@ -169,12 +170,16 @@ public class Search {
                     continue;
                 }
             }
-            Collections.sort(queue, new SortbyaStar_cost());
+            if(heuri ==1){
+                Collections.sort(queue, new SortbyaStar_cost_h1());
+            }else{
+                Collections.sort(queue, new SortbyaStar_cost_h2());
+            }
         }
         return new Solution(expanSequence,queue,root,false);
     }
 
-   public Solution greedySearch(Node root) {
+   public Solution greedySearch(Node root,int heuri) {
         ArrayList<Node> queue = new ArrayList< Node>();
         ArrayList<String> uniqueStates = new ArrayList<String>();
         ArrayList<Node> expanSequence = new ArrayList<Node>();   
@@ -202,7 +207,11 @@ public class Search {
                     continue;
                 }
             }
-            Collections.sort(queue, new Sortbyhersic());
+            if(heuri ==1){
+                Collections.sort(queue, new Sortbygreedy_h1());
+            }else{
+                Collections.sort(queue, new Sortbygreedy_h2());
+            }
         }
         return new Solution(expanSequence,queue,root,false);
     }

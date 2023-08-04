@@ -15,8 +15,11 @@ public class Node  {
     long parentKey;
     HashMap<Long, Node> allNodes = new HashMap<Long, Node>();
     Node parentNode;
-    long  aStarCost;
-    long greedyCost;
+    long aStarCost;
+    long greedyCostH1;
+    long greedyCostH2;
+    long h1;
+    long h2;
     long heuristic;
 
     public void setParent(Node n){
@@ -24,9 +27,6 @@ public class Node  {
     }
     public Node getParent(){
         return this.parentNode;
-    }
-    public int h1(){
-       return 0;
     }
 
     public Node(Grid state){
@@ -38,8 +38,6 @@ public class Node  {
         parentKey = 0;
         this.key = ++index;
         allNodes.put(key, this );
-        aStarCost = this.cost + h1() ;
-        greedyCost = h1();
     }
 
     public boolean goaltest(){
@@ -117,9 +115,11 @@ public class Node  {
             }
 
         }
-        heuristic = h1+h2;
-        aStarCost = heuristic;
-        greedyCost = heuristic + cost;
+        this.h1=h1;
+        this.h2=h2;
+
+        greedyCostH1 = h1 + cost;
+        greedyCostH2 = h2 + cost;
     }
 }
 
@@ -131,18 +131,33 @@ class Sortbycost implements Comparator<Node>
     }
 }
 
-class SortbyaStar_cost implements Comparator<Node>
+class SortbyaStar_cost_h1 implements Comparator<Node>
 {
     public int compare(Node a, Node b)
     {
-        return (int)(a.aStarCost - b.aStarCost);
+        return (int)(a.h1 - b.h1);
+    }
+}
+class SortbyaStar_cost_h2 implements Comparator<Node>
+{
+    public int compare(Node a, Node b)
+    {
+        return (int)(a.h2 - b.h2);
     }
 }
 
-class Sortbyhersic implements Comparator<Node>
+class Sortbygreedy_h1 implements Comparator<Node>
 {
     public int compare(Node a, Node b)
     {
-        return (int)(a.greedyCost - b.greedyCost);
+        return (int)(a.greedyCostH1 - b.greedyCostH1);
+    }
+}
+
+class Sortbygreedy_h2 implements Comparator<Node>
+{
+    public int compare(Node a, Node b)
+    {
+        return (int)(a.greedyCostH2 - b.greedyCostH2);
     }
 }
