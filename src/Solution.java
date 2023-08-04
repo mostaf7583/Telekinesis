@@ -6,6 +6,7 @@ public class Solution {
     ArrayList<Node> queue;
     boolean solutionExist;
     Node goal;
+    ArrayList<Long> path;
     public Solution(){
 
     }
@@ -14,6 +15,10 @@ public class Solution {
         this.queue = queue;
         this.solutionExist = solutionExist;
         this.goal = goal;
+        if(solutionExist){
+            addParents (goal);
+            getPath();
+        } 
     }
 
     void addParents (Node n){
@@ -26,6 +31,13 @@ public class Solution {
         }     
     }
 
+    void getPath(){
+        this.path = new ArrayList<Long>();
+        for(int i= keys.size()-1; i>=0;i--){
+            path.add(keys.get(i).key);
+        }
+    }
+
     public void visualizeSolution(){
         if(this.solutionExist == false){
             System.out.println("No solution Exists");
@@ -33,7 +45,9 @@ public class Solution {
         }
         System.out.println("Cost: "+ this.goal.cost);
         System.out.println("No. of the expanded nodes = "+ this.expanSequence.size());
-        addParents(goal);
+        System.out.print("The path to the goal: ");
+        for(long i: path) System.out.print(i+" ");
+        System.out.println();
         System.out.println("Solution steps representation starting from the root: ");
         for(int i= keys.size()-1; i>=0;i--){
             keys.get(i).state.printGrid();
