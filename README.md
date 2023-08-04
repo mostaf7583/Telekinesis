@@ -482,3 +482,9 @@ The choice of which algorithm to use depends on the specific problem requirement
 The implementation provides a solid foundation for implementing various search algorithms to find an optimal path for the agent to reach the goal state in the telekinesis game. The use of priority queues and heuristic functions allows for more efficient exploration of the search space, which is essential for solving complex problems.
 
 The performance comparison helps identify the most effective search algorithm for the given telekinesis game, providing valuable insights into the strengths and weaknesses of each approach. With this implementation and analysis, players can enjoy solving the telekinesis game efficiently and find the optimal plan to guide the agent to the exit.
+
+## citation 
+https://www.logicbig.com/how-to/code-snippets/jcode-java-cmd-command-line-table.html
+
+
+
